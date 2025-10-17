@@ -22,6 +22,14 @@ all-questions-required: false
 required_questions:
   - modulename
   - skill_analyzing
+  - skill_genomics
+  - interest_in_continuing
+  - interest_stem_careers
+  - know_inheritance
+  - know_impact
+  - curious_genomics
+  - wanna_learn
+  - understand_rw_use
 ---
 
 ```{r}
@@ -95,7 +103,7 @@ sd_question(
 sd_output(
   id = 'est_comp_date',
   type = 'question'
-)
+) #note right now this question automatically records the default date (day of taking the survey) if respondent doesn't interact with the question
 
 sd_next()
 ```
@@ -108,7 +116,7 @@ sd_next()
 
 ```{r}
 sd_question(
-  type = 'slider',
+  type = 'mc_buttons',
   id = 'skill_analyzing',
   label = "My skill in <u>analyzing genetic data</u> is:",
   option = c(
@@ -127,8 +135,26 @@ sd_question(
 
 sd_question(
   type = 'mc_buttons',
-  id = 'skill_analyzing_buttons',
-  label = "My skill in <u>analyzing genetic data</u> is:",
+  id = 'skill_genomics',
+  label = "My skill in <u>using genomic tools and/or websites</u> is:",
+  option = c(
+    "1: None" = "one_none",
+    "2" = 'two_oo_ten',
+    "3" = 'three_oo_ten',
+    "4" = 'four_oo_ten',
+    "5" = "five_oo_ten",
+    "6" = "six_oo_ten",
+    "7" = "seven_oo_ten",
+    "8" = "eight_oo_ten",
+    "9" = "nine_oo_ten",
+    "10: Very High" = "ten_veryhigh"
+  )
+)
+
+sd_question(
+  type = 'mc_buttons',
+  id = 'interest_in_continuing',
+  label = "My interest in <u>continuing research/education</u> is:",
   option = c(
     "1: None" = "one_none",
     "2" = 'two_oo_ten',
@@ -144,6 +170,116 @@ sd_question(
 )
 
 sd_next()
+```
+
+:::
+
+::: {.sd_page id=page4}
+
+## Section 3 of 3
+
+```{r}
+
+sd_question(
+  type = 'mc_buttons',
+  id = 'interest_stem_careers',
+  label = 'I have broad interest in STEM careers.',
+  option = c(
+    "1: Strongly Disagree" = "one_sd",
+    "2" = 'two',
+    "3" = 'three',
+    "4" = 'four',
+    "5: Strongly Agree" = "five_sa"
+  )
+)
+
+sd_question(
+  type = 'mc_buttons',
+  id = 'know_inheritance',
+  label = 'I am knowledgeable about inheritance.',
+  option = c(
+    "1: Strongly Disagree" = "one_sd",
+    "2" = 'two',
+    "3" = 'three',
+    "4" = 'four',
+    "5: Strongly Agree" = "five_sa"
+  )
+)
+
+sd_question(
+  type = 'mc_buttons',
+  id = 'know_impact',
+  label = 'I am knowledgeable about the impact of genomics on human health.',
+  option = c(
+    "1: Strongly Disagree" = "one_sd",
+    "2" = 'two',
+    "3" = 'three',
+    "4" = 'four',
+    "5: Strongly Agree" = "five_sa"
+  )
+)
+
+sd_question(
+  type = 'mc_buttons',
+  id = 'curious_genomics',
+  label = 'I am curious about genetics/genomics.',
+  option = c(
+    "1: Strongly Disagree" = "one_sd",
+    "2" = 'two',
+    "3" = 'three',
+    "4" = 'four',
+    "5: Strongly Agree" = "five_sa"
+  )
+)
+
+sd_question(
+  type = 'mc_buttons',
+  id = 'wanna_learn',
+  label = "I'd like to learn more about genetics/genomics.",
+  option = c(
+    "1: Strongly Disagree" = "one_sd",
+    "2" = 'two',
+    "3" = 'three',
+    "4" = 'four',
+    "5: Strongly Agree" = "five_sa"
+  )
+)
+
+sd_question(
+  type = 'mc_buttons',
+  id = 'understand_rw_use',
+  label = 'I understand how genetic data is used in the real world.',
+  option = c(
+    "1: Strongly Disagree" = "one_sd",
+    "2" = 'two',
+    "3" = 'three',
+    "4" = 'four',
+    "5: Strongly Agree" = "five_sa"
+  )
+)
+
+sd_question(
+  type = 'textarea',
+  id = 'section_three_extra',
+  label = '(Optional) In 1-2 senteces, tell us about your responses above.'
+)
+
+sd_next()
+```
+
+:::
+
+::: {.sd_page id=end}
+
+## Thank you for taking this survey!
+
+Record your Random ID that is displayed below. You will use it after the `r sd_output("modulename", type = "label_option")` activity.
+
+
+**Your Random ID:** `r sd_output("completion_code", type = 'value')`
+
+```{r}
+sd_close()
 ```
 
 :::

@@ -56,6 +56,12 @@ server <- function(input, output, session) {
     )
   })
 
+  # Make a 10-digit random number completion code
+  completion_code <- sd_completion_code(10)
+
+  # Store the completion code in the survey data
+  sd_store_value(completion_code)
+
   # Run surveydown server and define database
   sd_server(db = db)
 }

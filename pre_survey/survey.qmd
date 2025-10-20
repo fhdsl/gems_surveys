@@ -21,7 +21,9 @@ capture-metadata: true
 all-questions-required: false
 required_questions:
   - modulename
+  - instructor
   - skill_analyzing
+  - skill_analyzing_slider
   - skill_genomics
   - interest_in_continuing
   - interest_stem_careers
@@ -101,9 +103,9 @@ sd_question(
 )
 
 sd_output(
-  id = 'est_comp_date',
+  id = 'instructor',
   type = 'question'
-) #note right now this question automatically records the default date (day of taking the survey) if respondent doesn't interact with the question
+)
 
 sd_next()
 ```
@@ -115,6 +117,25 @@ sd_next()
 ## Section 2 of 3
 
 ```{r}
+sd_question(
+  type = 'slider',
+  id = 'skill_analyzing_slider',
+  label = "My skill in <u>analyzing genetic data</u> is:",
+  option = c(
+    "No Response" = 'nr',
+    "1: None" = "one_none",
+    "2" = 'two_oo_ten',
+    "3" = 'three_oo_ten',
+    "4" = 'four_oo_ten',
+    "5" = "five_oo_ten",
+    "6" = "six_oo_ten",
+    "7" = "seven_oo_ten",
+    "8" = "eight_oo_ten",
+    "9" = "nine_oo_ten",
+    "10: Very High" = "ten_veryhigh"
+  )
+)
+
 sd_question(
   type = 'mc_buttons',
   id = 'skill_analyzing',

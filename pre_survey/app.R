@@ -46,13 +46,16 @@ server <- function(input, output, session) {
     module_name <- sd_output("modulename", type = "label_option")
 
     #make question label
-    label <- glue::glue("What date will you complete the {module_name} activity?")
-
+    label <- glue::glue("Who will your instructor be for the {module_name} activity?")
+    options <- c('dra','dcc','dsc','dkf','dal','self')
+    names(options) <- c("Dr. Rosa Alcazar", "Dr. Carolina Chianelli", "Dr. Stephanie Coffman", "Dr. Karla Fuller", "Dr. Andrew Lee", "Other / Self-led")
+    
     #make the question
     sd_question(
-      type = "date",
-      id = "est_comp_date",
-      label = label
+      type = "select",
+      id = "instructor",
+      label = label,
+      option = options
     )
   })
 

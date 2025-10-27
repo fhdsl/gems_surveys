@@ -40,7 +40,7 @@ library(surveydown)
 
 <u>DATA SHARING</u>: No personally identifiable information (such as response timestamp) will be shared.
 
-<u>PARTICIPATION</u>: You must be 18 or over to participate. You will be asked a series of questions about participating in GEMs modules. You can stop participating in the survey at any point. You do not need to answer optional questions. Any answers you have filled in will be automatically submitted if you close the browser window.
+<u>PARTICIPATION</u>: You must be 18 or over to participate. You will be asked a series of questions about participating in GEMs modules. You can stop participating in the survey at any point. You do not need to answer optional questions. Any answers you have filled in will be automatically submitted if you close the browser tab.
 
 Depending on how you answer the survey, this will take **about 3 minutes** to complete. Navigation to previous pages of the survey is not possible. Therefore, in order to make any edits to your responses, please review each page's answers before continuing to the next page. **Taking this survey will not affect your grade.**
 
@@ -168,7 +168,7 @@ sd_question(
 sd_question(
   type  = 'textarea',
   id    = 'section_three_extra',
-  label = '(Optional) In 1-2 senteces, tell us about your responses above.'
+  label = '(Optional) In 1-2 sentences, tell us about your responses above.'
 )
 
 sd_next()

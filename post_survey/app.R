@@ -47,6 +47,11 @@ server <- function(input, output, session) {
 
     #make question label
     labelrid <- glue::glue("Enter the random ID from before the **{module_name}** activity.")
+    
+    #default label for module question
+    labelrid_default <- "Enter the random ID from before the activity."
+    if (is.null(input$modulename)) labelrid <- labelrid_default
+    else if (input$modulename == "")labelrid <- labelrid_default
 
     #make the random ID question
     sd_question(

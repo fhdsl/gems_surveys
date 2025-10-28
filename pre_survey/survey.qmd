@@ -1,0 +1,204 @@
+---
+# General Settings
+format: html
+echo: false
+warning: false
+
+# Theme Settings
+theme: default
+barposition: top
+footer-left: "Made with [surveydown](https://surveydown.org)"
+footer-right: '[<i class="bi bi-github"></i> Source Code](https://github.com/fhdsl/gems_surveys)'
+
+# Survey Settings
+use-cookies: false
+auto-scroll: false
+rate-survey: false
+system-language: en
+highlight-unanswered: true
+highlight-color: blue
+capture-metadata: true
+all-questions-required: false
+required_questions:
+  - modulename
+  - instructor
+  - likert_skills_etc
+  - likert_interests_etc
+---
+
+```{r}
+library(surveydown)
+```
+
+::: {.sd_page id=welcome}
+
+# GEMs Module Student Pre-Survey
+
+**Thank you for participating in the survey!** We are collecting data about your experience learning genomics and genetics topics. This data will be used to guide the GEMs Program and may ultimately be used for a research publication and reporting to the NIH.
+
+<u>DATA CONFIDENTIALITY</u>: Responses are anonymous. The potential risks to you are small. The potential benefits to the education community are high - we will use this information to guide development of education material.
+
+<u>DATA SHARING</u>: No personally identifiable information (such as response timestamp) will be shared.
+
+<u>PARTICIPATION</u>: You must be 18 or over to participate. You will be asked a series of questions about participating in GEMs modules. You can stop participating in the survey at any point. You do not need to answer optional questions. Any answers you have filled in will be automatically submitted if you close the browser tab.
+
+Depending on how you answer the survey, this will take **about 3 minutes** to complete. Navigation to previous pages of the survey is not possible. Therefore, in order to make any edits to your responses, please review each page's answers before continuing to the next page. **Taking this survey will not affect your grade.**
+
+<u>RISK</u>: Risk of participation is minimal. The questions we ask pose minimal security risk to participants as they focus on your personal experience and expectations. While we have taken measures to ensure the security of the survey responses, please be aware that no online system is completely secure. By participating in this survey, you understand and accept the inherent risks associated with transmitting information over the internet.
+
+<u>CONSENT</u>: The first question will ask if you are over 18 years of age and if you consent (or agree) that the data from your responses be used for GEMs development purposes.
+
+<u>QUESTIONS OR PROBLEMS</u>: If you have questions or problems, email Ava Hoffman at [ahoffma2@fredhutch.org](mailto:ahoffma2@fredhutch.org). You may also contact the Fred Hutchinson Cancer Center IRB Office if you have questions about your rights as a participant. Contact the IRB if you fell you have not been treated fairly or if you have other concerns.
+
+This study has been deemed exempt by the Fred Hutchinson Cancer Center IRB, specifically EXempt status (Category (2)(ii) Tests, surveys, interviews, or observation (low risk)). Thus, the proposed activity does not qualify as human subjects research as defined by DHHS regulations 45 CFR 46.102, and does not require IRB oversight.
+
+IRB No.: FHIRB0020343<br/>
+Date Approved: 02/13/2024,<br/>
+The IRB contact information is:<br/>
+Address: Fred Hutch Cancer Center Institutional Review Office<br/>
+1100 Fairview Ave. N. Mail Stop J2-100, Seattle, WA 98109<br/>
+Telephone: 206-667-5900<br/>
+E-mail: [iro@fredhutch.org](mailto:iro@fredhutch.org)
+
+```{r}
+sd_question(
+  type   = 'mc',
+  id     = 'consent',
+  label  = "I am 18 or over AND I consent to my responses being used for GEMs evaluation and development.",
+  option = c(
+    'Yes' = 'yes',
+    'No'  = 'no'
+  )
+)
+
+sd_next()
+```
+
+:::
+
+::: {.sd_page id=page2}
+
+## Section 1 of 3
+
+```{r}
+sd_question(
+  type   = 'select',
+  id     = 'modulename',
+  label  = "Which GEMs module will you be using?",
+  option = c(
+    "All of Us: Understanding Ethics"                                         = "aou_ethics",
+    "Database Detectives: Exploring Public Genomic Databases"                 = "genomic_databases",
+    "Family Markers: Using Multiply-Affected Families to Identify Risk Genes" = "family_markers",
+    "Genomic Medicine: Polygenic Risk Score Calculation"                      = "prs",
+    "Differential Expression and the Mouse Gut-Brain Axis"                    = 'dif_exp'
+  )
+)
+
+sd_output(
+  id   = 'instructor',
+  type = 'question'
+)
+
+sd_next()
+```
+
+:::
+
+::: {.sd_page id=page3}
+
+## Section 2 of 3
+
+```{r}
+
+sd_question(
+  type   = 'matrix',
+  id     = 'likert_skills_etc',
+  label  = "Please rank your:",
+  option = c(
+    "1: None"       = "one_none",
+    "2"             = 'two_oo_ten',
+    "3"             = 'three_oo_ten',
+    "4"             = 'four_oo_ten',
+    "5"             = "five_oo_ten",
+    "6"             = "six_oo_ten",
+    "7"             = "seven_oo_ten",
+    "8"             = "eight_oo_ten",
+    "9"             = "nine_oo_ten",
+    "10: Very High" = "ten_veryhigh"
+  ),
+  row = c(
+    'Skill in analyzing genetic data'              = 'genetic_data',
+    'Skill in using genomic tools and/or websites' = 'tools_websites',
+    'Interest in continuing research/education'    = 'continuing_with'
+  )
+)
+
+sd_next()
+```
+
+:::
+
+::: {.sd_page id=page4}
+
+## Section 3 of 3
+
+```{r}
+
+sd_question(
+  type   = 'matrix',
+  id     = 'likert_interests_etc',
+  label  = 'Please rate how much you agree or disagree with the following statements:',
+  option = c(
+    "1: Strongly Disagree" = "one_sd",
+    "2"                    = 'two_oo_five',
+    "3"                    = 'three_oo_five',
+    "4"                    = 'four_oo_five',
+    "5: Strongly Agree"    = "five_sa"
+    ),
+  row = c(
+    'I have broad interest in STEM careers.'                        = 'interest_stem',
+    'I am knowledgeable about inheritance.'                         = 'know_inherit',
+    'I knowledgeable about the impact of genomics on human health.' = 'know_impact',
+    'I am curious about genetics/genomics.'                         = 'curious_gen',
+    "I'd like to learn more about genetics/genomics."               = 'wanna_learn',
+    'I understand how genetic data is used in the real world.'      = 'know_rw_use'
+  )
+)
+
+sd_question(
+  type  = 'textarea',
+  id    = 'section_three_extra',
+  label = '(Optional) In 1-2 sentences, tell us about your responses above.'
+)
+
+sd_next()
+```
+
+:::
+
+::: {.sd_page id=end}
+
+## Thank you for taking this survey!
+
+Record your Random ID that is displayed below. You will use it after the `r sd_output("modulename", type = "label_option")` activity.
+
+
+**Your Random ID:** `r sd_output("completion_code", type = 'value')`
+
+```{r}
+sd_close()
+```
+
+:::
+
+::: {.sd_page id=screenout}
+
+## Thank you for your interest!
+
+Unfortunately, you do not meet the eligibility requirements for this survey.
+
+```{r}
+sd_close()
+```
+
+:::

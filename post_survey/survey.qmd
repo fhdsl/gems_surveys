@@ -225,7 +225,7 @@ sd_next()
 
 ## Section 5 of 5
 
-**The following section will ask optional open-ended questions about your experience. Please do not include any information that can identify you.**
+The following section will ask optional open-ended questions about your experience with the **`r sd_output("modulename", type = "label_option")` activity**. Please do not include any information that can identify you.
 
 ```{r}
 

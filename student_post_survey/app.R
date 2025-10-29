@@ -41,7 +41,7 @@ server <- function(input, output, session) {
     # Consent
     input$consent == 'no' ~ 'screenout'
   )
-
+  
   observe({
     module_name <- sd_output("modulename", type = "label_option")
 
@@ -61,6 +61,10 @@ server <- function(input, output, session) {
     )
 
   })
+  
+  sd_stop_if(
+    !grepl("^\\d{10}$", input$random_id) ~ "Your random ID should be 10 digits" 
+  )
 
   # Run surveydown server and define database
   sd_server(db = db)

@@ -50,7 +50,7 @@ Depending on how you answer the survey, this will take **about 3 minutes** to co
 
 <u>QUESTIONS OR PROBLEMS</u>: If you have questions or problems, email Ava Hoffman at [ahoffma2@fredhutch.org](mailto:ahoffma2@fredhutch.org). You may also contact the Fred Hutchinson Cancer Center IRB Office if you have questions about your rights as a participant. Contact the IRB if you fell you have not been treated fairly or if you have other concerns.
 
-This study has been deemed exempt by the Fred Hutchinson Cancer Center IRB, specifically EXempt status (Category (2)(ii) Tests, surveys, interviews, or observation (low risk)).
+This study has been deemed exempt by the Fred Hutchinson Cancer Center IRB, specifically Exempt status (Category (2)(ii) Tests, surveys, interviews, or observation (low risk)).
 
 IRB No.: FHIRB0020343<br/>
 Date Approved: 02/13/2024,<br/>

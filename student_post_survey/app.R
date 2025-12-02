@@ -1,8 +1,9 @@
 # Package setup ---------------------------------------------------------------
 
 # Install required packages:
+# ! Comment out when deploying to rsconnect
 # install.packages("pak")
-pak::pak("surveydown-dev/surveydown@v0.13.4-gssencmode-fix", ask = FALSE)
+# pak::pak("surveydown-dev/surveydown@v0.13.4-gssencmode-fix", ask = FALSE)
 
 # Load packages
 library(surveydown)
@@ -26,7 +27,8 @@ library(surveydown)
 # doing local testing. Once you're ready to collect survey responses, set
 # ignore = FALSE or just delete this argument.
 
-db <- sd_db_connect(ignore = TRUE)
+# db <- sd_db_connect(ignore = TRUE)
+db <- sd_db_connect()
 
 # UI setup --------------------------------------------------------------------
 

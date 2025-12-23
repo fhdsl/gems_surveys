@@ -32,21 +32,46 @@ pre_dat <-
   select(-c(session_id, browser, ip_address))
 
 # Do some cleanup
-pre_dat_clean <- 
-  pre_dat %>% 
-  select(-c(likert_skills_etc,likert_interests_etc)) %>% 
-  mutate(likert_skills_etc_genetic_data = case_when(
-    likert_skills_etc_genetic_data == "one_none" ~ "1",
-    likert_skills_etc_genetic_data == "two_oo_ten" ~ "2",
-    likert_skills_etc_genetic_data == "three_oo_ten" ~ "3",
-    likert_skills_etc_genetic_data == "four_oo_ten" ~ "4",
-    likert_skills_etc_genetic_data == "five_oo_ten" ~ "5",
-    likert_skills_etc_genetic_data == "six_oo_ten" ~ "6",
-    likert_skills_etc_genetic_data == "seven_oo_ten" ~ "7",
-    likert_skills_etc_genetic_data == "eight_oo_ten" ~ "8",
-    likert_skills_etc_genetic_data == "nine_oo_ten" ~ "9",
-    likert_skills_etc_genetic_data == "ten_veryhigh" ~ "10"
-  ),
-  likert_skills_etc_genetic_data = as.numeric(likert_skills_etc_genetic_data)
-  )
+pre_dat_clean <-
+  pre_dat %>%
+  select(-c(likert_skills_etc, likert_interests_etc)) %>%
+  mutate(across(
+    c(
+      likert_skills_etc_genetic_data,
+      likert_skills_etc_tools_websites,
+      likert_skills_etc_continuing_with
+    ),
+    ~ case_when(
+      . == "one_none" ~ 1,
+      . == "two_oo_ten" ~ 2,
+      . == "three_oo_ten" ~ 3,
+      . == "four_oo_ten" ~ 4,
+      . == "five_oo_ten" ~ 5,
+      . == "six_oo_ten" ~ 6,
+      . == "seven_oo_ten" ~ 7,
+      . == "eight_oo_ten" ~ 8,
+      . == "nine_oo_ten" ~ 9,
+      . == "ten_veryhigh" ~ 10,
+      TRUE ~ NA
+    )
+  )) %>% 
+  mutate(across(
+    c(
+      likert_interests_etc_interest_stem,
+      likert_interests_etc_know_inherit,
+      likert_interests_etc_know_impact,
+      likert_interests_etc_curious_gen,
+      likert_interests_etc_wanna_learn,
+      likert_interests_etc_know_rw_use
+    ),
+    ~ case_when(
+      . == "one_sd" ~ 1,
+      . == "two_oo_five" ~ 2,
+      . == "three_oo_five" ~ 3,
+      . == "four_oo_five" ~ 4,
+      . == "five_sa" ~ 5,
+      TRUE ~ NA
+    )
+  ))
+    
 ```

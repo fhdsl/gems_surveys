@@ -1,0 +1,52 @@
+---
+format: html
+editor: visual
+---
+
+## Load packages; start data import
+
+```{r}
+library(surveydown)
+library(tidyverse)
+
+# Dates - set time to filter below
+survey_start <- as_date("2025-12-03")
+survey_end <- as_date("2025-12-04")
+
+# Pre-survey
+pre_db <- sd_db_connect(gssencmode = "disable", env_file = "student_pre_survey/.env")
+pre_dat <- 
+  sd_get_data(pre_db) %>%
+  mutate(started = as_date(time_start),
+         ended = as_date(time_end)) %>% 
+  filter(consent == "yes") %>% 
+  select(-starts_with("time_"), -current_page) %>% 
+  # Exclude some test submissions
+  filter(
+    session_id != "c31efa757a8b11e565beb9c3558296d6",
+    session_id != "d045f825e38f4b7cd18ec44c41c27741",
+    session_id != "d6051e073164ec760907dbf52a42d8bb"
+  ) %>% 
+  filter(started >= survey_start,
+         ended <= survey_end) %>% 
+  select(-c(session_id, browser, ip_address))
+
+# Do some cleanup
+pre_dat_clean <- 
+  pre_dat %>% 
+  select(-c(likert_skills_etc,likert_interests_etc)) %>% 
+  mutate(likert_skills_etc_genetic_data = case_when(
+    likert_skills_etc_genetic_data == "one_none" ~ "1",
+    likert_skills_etc_genetic_data == "two_oo_ten" ~ "2",
+    likert_skills_etc_genetic_data == "three_oo_ten" ~ "3",
+    likert_skills_etc_genetic_data == "four_oo_ten" ~ "4",
+    likert_skills_etc_genetic_data == "five_oo_ten" ~ "5",
+    likert_skills_etc_genetic_data == "six_oo_ten" ~ "6",
+    likert_skills_etc_genetic_data == "seven_oo_ten" ~ "7",
+    likert_skills_etc_genetic_data == "eight_oo_ten" ~ "8",
+    likert_skills_etc_genetic_data == "nine_oo_ten" ~ "9",
+    likert_skills_etc_genetic_data == "ten_veryhigh" ~ "10"
+  ),
+  likert_skills_etc_genetic_data = as.numeric(likert_skills_etc_genetic_data)
+  )
+```

@@ -1,0 +1,277 @@
+---
+format: pdf
+editor: visual
+---
+
+```{r echo = F}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+# GEMs Report
+
+Results for Carolina - 2025-12-03, Family Markers Activity
+
+```{r}
+setwd(paste0(here::here(), "/R"))
+
+library(surveydown)
+library(tidyverse)
+library(ggstats)
+
+# Dates - set time to filter below
+survey_start <- as_date("2025-12-03")
+survey_end <- as_date("2025-12-04")
+
+# Pre-survey
+pre_db <- sd_db_connect(gssencmode = "disable", env_file = '../student_pre_survey/.env')
+pre_dat <- 
+  sd_get_data(pre_db) %>%
+  mutate(started = as_date(time_start),
+         ended = as_date(time_end)) %>% 
+  filter(consent == "yes") %>% 
+  select(-starts_with("time_"), -current_page) %>% 
+  # Exclude some test submissions
+  filter(
+    session_id != "c31efa757a8b11e565beb9c3558296d6",
+    session_id != "d045f825e38f4b7cd18ec44c41c27741",
+    session_id != "d6051e073164ec760907dbf52a42d8bb"
+  ) %>% 
+  filter(started >= survey_start,
+         ended <= survey_end) %>% 
+  select(-c(session_id, browser, ip_address))
+
+# Do some cleanup
+pre_dat_clean <-
+  pre_dat %>%
+  select(-c(likert_skills_etc, likert_interests_etc)) %>%
+  mutate(across(
+    c(
+      likert_skills_etc_genetic_data,
+      likert_skills_etc_tools_websites,
+      likert_skills_etc_continuing_with
+    ),
+    ~ case_when(
+      . == "one_none" ~ 1,
+      . == "two_oo_ten" ~ 2,
+      . == "three_oo_ten" ~ 3,
+      . == "four_oo_ten" ~ 4,
+      . == "five_oo_ten" ~ 5,
+      . == "six_oo_ten" ~ 6,
+      . == "seven_oo_ten" ~ 7,
+      . == "eight_oo_ten" ~ 8,
+      . == "nine_oo_ten" ~ 9,
+      . == "ten_veryhigh" ~ 10,
+      TRUE ~ NA
+    )
+  )) %>% 
+  mutate(across(
+    c(
+      likert_interests_etc_interest_stem,
+      likert_interests_etc_know_inherit,
+      likert_interests_etc_know_impact,
+      likert_interests_etc_curious_gen,
+      likert_interests_etc_wanna_learn,
+      likert_interests_etc_know_rw_use
+    ),
+    ~ case_when(
+      . == "one_sd" ~ 1,
+      . == "two_oo_five" ~ 2,
+      . == "three_oo_five" ~ 3,
+      . == "four_oo_five" ~ 4,
+      . == "five_sa" ~ 5,
+      TRUE ~ NA
+    )
+  ))
+
+# Post-survey
+post_db <- sd_db_connect(gssencmode = "disable", env_file = '../student_post_survey/.env')
+post_dat <- 
+  sd_get_data(post_db) %>%
+  mutate(started = as_date(time_start),
+         ended = as_date(time_end)) %>% 
+  filter(consent == "yes") %>% 
+  select(-starts_with("time_"), -current_page) %>% 
+  # Exclude some test submissions
+  filter(
+    session_id != "c31efa757a8b11e565beb9c3558296d6",
+    session_id != "d045f825e38f4b7cd18ec44c41c27741",
+    session_id != "d6051e073164ec760907dbf52a42d8bb"
+  ) %>% 
+  filter(started >= survey_start,
+         ended <= survey_end) %>% 
+  select(-c(session_id, browser, ip_address))
+
+# Do some cleanup
+post_dat_clean <-
+  post_dat %>%
+  select(-c(likert_skills_etc, likert_interests_etc)) %>%
+  mutate(across(
+    c(
+      likert_skills_etc_genetic_data,
+      likert_skills_etc_tools_websites,
+      likert_skills_etc_continuing_with
+    ),
+    ~ case_when(
+      . == "one_none" ~ 1,
+      . == "two_oo_ten" ~ 2,
+      . == "three_oo_ten" ~ 3,
+      . == "four_oo_ten" ~ 4,
+      . == "five_oo_ten" ~ 5,
+      . == "six_oo_ten" ~ 6,
+      . == "seven_oo_ten" ~ 7,
+      . == "eight_oo_ten" ~ 8,
+      . == "nine_oo_ten" ~ 9,
+      . == "ten_veryhigh" ~ 10,
+      TRUE ~ NA
+    )
+  )) %>% 
+  mutate(across(
+    c(
+      likert_interests_etc_interest_stem,
+      likert_interests_etc_know_inherit,
+      likert_interests_etc_know_impact,
+      likert_interests_etc_curious_gen,
+      likert_interests_etc_wanna_learn,
+      likert_interests_etc_know_rw_use,
+      likert_activity_apply,
+      likert_activity_eval,
+      likert_activity_conclusions,
+      likert_activity_real_science
+    ),
+    ~ case_when(
+      . == "one_sd" ~ 1,
+      . == "two_oo_five" ~ 2,
+      . == "three_oo_five" ~ 3,
+      . == "four_oo_five" ~ 4,
+      . == "five_sa" ~ 5,
+      TRUE ~ NA
+    )
+  ))
+```
+
+```{r}
+# Join based on random ID
+full_dat <-
+  pre_dat_clean %>% dplyr::full_join(post_dat_clean, by = c(completion_code = "random_id"))
+write_csv(full_dat, "get_data.csv")
+```
+
+```{r}
+full_dat_likert <-
+  full_dat %>%
+  select(
+    !c(
+      consent.x,
+      consent.y,
+      modulename.x,
+      modulename.y,
+      instructor,
+      ended.x,
+      ended.y,
+      started.x,
+      started.y,
+      date_of_completion,
+      section_three_extra.x,
+      section_three_extra.y,
+      lesson_engagement_ft,
+      lesson_confusion_ft,
+      suggestions_ft,
+      likert_activity
+    )
+  )
+```
+
+## Responses
+
+```{r}
+pre_only <- full_dat %>% pull(started.y) %>% is.na() %>% sum() # Took pre-survey, but not post-survey
+post_only <- full_dat %>% pull(started.x) %>% is.na() %>% sum() # Took post-survey, but not pre-survey
+total <- nrow(full_dat)
+took_both <- total - pre_only - post_only
+```
+
+`r total` unique students are represented. Of these, `r took_both` students took both surveys. `r pre_only` students took the pre-survey, but not the post-survey. `r post_only` students took the post-survey, but not the pre-survey.
+
+## Skills Growth
+
+```{r fig.height=4}
+likert_levels <- c(seq(1:10))
+
+full_dat_likert_skills <-
+  full_dat_likert %>% select(
+    likert_skills_etc_genetic_data.x,
+    likert_skills_etc_genetic_data.y,
+    likert_skills_etc_tools_websites.x,
+    likert_skills_etc_tools_websites.y,
+    likert_skills_etc_continuing_with.x,
+    likert_skills_etc_continuing_with.y
+  ) %>%
+  mutate(across(everything(), ~factor(.x, levels = likert_levels)))
+
+gglikert(
+  full_dat_likert_skills,
+  variable_labels = c(
+    likert_skills_etc_genetic_data.x = "Skill in analyzing genetic data - BEFORE",
+    likert_skills_etc_genetic_data.y = "Skill in analyzing genetic data - AFTER",
+    likert_skills_etc_tools_websites.x = "Skill in using genomic tools and/or websites - BEFORE",
+    likert_skills_etc_tools_websites.y = "Skill in using genomic tools and/or websites - AFTER",
+    likert_skills_etc_continuing_with.x = "Interest in continuing research/education - BEFORE",
+    likert_skills_etc_continuing_with.y = "Interest in continuing research/education - AFTER"
+    ),
+  labels_size = 2,
+  y_label_wrap = 35,
+) +
+  theme(axis.text.y = element_text(size = 7))
+```
+
+## Interests Growth and reflection
+
+```{r fig.height=7}
+likert_levels <- c(seq(1:5))
+
+full_dat_likert_interests_activity <-
+  full_dat_likert %>% select(
+    likert_interests_etc_interest_stem.x,
+    likert_interests_etc_interest_stem.y,
+    likert_interests_etc_know_inherit.x,
+    likert_interests_etc_know_inherit.y,
+    likert_interests_etc_know_impact.x,
+    likert_interests_etc_know_impact.y,
+    likert_interests_etc_curious_gen.x,
+    likert_interests_etc_curious_gen.y,
+    likert_interests_etc_wanna_learn.x,
+    likert_interests_etc_wanna_learn.y,
+    likert_interests_etc_know_rw_use.x,
+    likert_interests_etc_know_rw_use.y,
+    likert_activity_apply,
+    likert_activity_eval,
+    likert_activity_conclusions,
+    likert_activity_real_science
+  ) %>%
+  mutate(across(everything(), ~factor(.x, levels = likert_levels)))
+
+gglikert(
+  full_dat_likert_interests_activity,
+    variable_labels = c(
+    likert_interests_etc_interest_stem.x = "I have broad interest in STEM careers - BEFORE",
+    likert_interests_etc_interest_stem.y = "I have broad interest in STEM careers - AFTER",
+    likert_interests_etc_know_inherit.x = "I am knowledgeable about inheritance - BEFORE",
+    likert_interests_etc_know_inherit.y = "I am knowledgeable about inheritance - AFTER",
+    likert_interests_etc_know_impact.x = "I knowledgeable about the impact of genomics on human health - BEFORE",
+    likert_interests_etc_know_impact.y = "I knowledgeable about the impact of genomics on human health - AFTER",
+    likert_interests_etc_curious_gen.x = "I am curious about genetics/genomics - BEFORE",
+    likert_interests_etc_curious_gen.y = "I am curious about genetics/genomics - AFTER",
+    likert_interests_etc_wanna_learn.x = "I'd like to learn more about genetics/genomics - BEFORE",
+    likert_interests_etc_wanna_learn.y = "I'd like to learn more about genetics/genomics - AFTER",
+    likert_interests_etc_know_rw_use.x = "I understand how genetic data is used in the real world - BEFORE",
+    likert_interests_etc_know_rw_use.y = "I understand how genetic data is used in the real world - AFTER",
+    likert_activity_apply = "[The activity] Made me apply my skills, rather than recall facts",
+    likert_activity_eval = "[The activity] Made me evaluate evidence, rather than recall facts",
+    likert_activity_conclusions = "[The activity] Helped me draw conclusions from data",
+    likert_activity_real_science = "[The activity] Allowed me to do 'real science'"
+    ),
+  labels_size = 2,
+  y_label_wrap = 35
+) +
+  theme(axis.text.y = element_text(size = 7))
+```

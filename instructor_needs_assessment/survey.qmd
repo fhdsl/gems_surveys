@@ -124,11 +124,11 @@ sd_question(
   id     = 'likert_skills',
   label  = "Please rank <u>skills</u> you believe your students need to gain in genomics/genetics.",
   option = c(
-    "1: Less Important" = "one_oo_five",
-    "2"                 = 'two_oo_five',
-    "3"                 = 'three_oo_five',
-    "4"                 = 'four_oo_five',
-    "5: More Important" = "five_oo_five"
+    "1: Less Important" = "1",
+    "2"                 = '2',
+    "3"                 = '3',
+    "4"                 = '4',
+    "5: More Important" = "5"
   ),
   row = c(
     'Construct and interpret pedigrees'                                                            = 'pedigrees',
@@ -152,11 +152,11 @@ sd_question(
   id     = 'likert_knowledge_areas',
   label  = "Please rank <u>knowledge areas</u> you believe your students need develop competence.",
   option = c(
-    "1: Less Important" = "one_oo_five",
-    "2"                 = 'two_oo_five',
-    "3"                 = 'three_oo_five',
-    "4"                 = 'four_oo_five',
-    "5: More Important" = "five_oo_five"
+    "1: Less Important" = "1",
+    "2"                 = '2',
+    "3"                 = '3',
+    "4"                 = '4',
+    "5: More Important" = "5"
   ),
   row = c(
     'Fundamental concepts (inheritance patterns, molecular genetics, epigenetics)'                                                                                                            = 'fundamental_concepts',
@@ -186,11 +186,11 @@ sd_question(
   id     = 'likert_gain_confidence',
   label  = "Please rank areas you believe your students will most benefit from gaining confidence.",
   option = c(
-    "1: Least Benefit" = "one_oo_five",
-    "2"                = 'two_oo_five',
-    "3"                = 'three_oo_five',
-    "4"                = 'four_oo_five',
-    "5: Most Benefit"  = "five_oo_five"
+    "1: Least Benefit" = "1",
+    "2"                = '2',
+    "3"                = '3',
+    "4"                = '4',
+    "5: Most Benefit"  = "5"
   ),
   row = c(
     'Solving genetic problems (e.g., variant detection)'                                                 = 'solving_genetic_probs',

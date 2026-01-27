@@ -123,16 +123,16 @@ sd_question(
   id     = 'likert_skills_etc',
   label  = "Please rank your:",
   option = c(
-    "1: None"       = "one_none",
-    "2"             = 'two_oo_ten',
-    "3"             = 'three_oo_ten',
-    "4"             = 'four_oo_ten',
-    "5"             = "five_oo_ten",
-    "6"             = "six_oo_ten",
-    "7"             = "seven_oo_ten",
-    "8"             = "eight_oo_ten",
-    "9"             = "nine_oo_ten",
-    "10: Very High" = "ten_veryhigh"
+    "1: None"       = "1",
+    "2"             = '2',
+    "3"             = '3',
+    "4"             = '4',
+    "5"             = "5",
+    "6"             = "6",
+    "7"             = "7",
+    "8"             = "8",
+    "9"             = "9",
+    "10: Very High" = "10"
   ),
   row = c(
     'Skill in analyzing genetic data'              = 'genetic_data',
@@ -157,11 +157,11 @@ sd_question(
   id     = 'likert_interests_etc',
   label  = 'Please rate how much you agree or disagree with the following statements:',
   option = c(
-    "1: Strongly Disagree" = "one_sd",
-    "2"                    = 'two_oo_five',
-    "3"                    = 'three_oo_five',
-    "4"                    = 'four_oo_five',
-    "5: Strongly Agree"    = "five_sa"
+    "1: Strongly Disagree" = "1",
+    "2"                    = '2',
+    "3"                    = '3',
+    "4"                    = '4',
+    "5: Strongly Agree"    = "5"
     ),
   row = c(
     'I have broad interest in STEM careers.'                        = 'interest_stem',
@@ -196,11 +196,11 @@ sd_question(
   id     = 'likert_activity',
   label  = "The activity...",
   option = c(
-    "1: Strongly Disagree" = "one_sd",
-    "2"                    = 'two_oo_five',
-    "3"                    = 'three_oo_five',
-    "4"                    = 'four_oo_five',
-    "5: Strongly Agree"    = "five_sa"
+    "1: Strongly Disagree" = "1",
+    "2"                    = '2',
+    "3"                    = '3',
+    "4"                    = '4',
+    "5: Strongly Agree"    = "5"
     ),
   row = c(
     "Made me apply my skills, rather than recall facts."   = "apply",

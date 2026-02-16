@@ -54,9 +54,17 @@ server <- function(input, output, session) {
     if (is.null(input$modulename)) label <- label_default
     else if (input$modulename == "") label <- label_default
 
-    options <- c('dra','dcc','dsc','dkf','dal','self')
-    names(options) <- c("Dr. Rosa Alcazar", "Dr. Carolina Chianelli", "Dr. Stephanie Coffman", "Dr. Karla Fuller", "Dr. Andrew Lee", "Other / Self-led")
-
+    options <- c('Alcazar', 'Chianelli', 'Coffman', 'Fuller', 'Kerr', 'Lee', 'self')
+    names(options) <- c(
+      "Dr. Rosa Alcazar",
+      "Dr. Carolina Chianelli",
+      "Dr. Stephanie Coffman",
+      "Dr. Karla Fuller",
+      "Dr. Jennifer Kerr",
+      "Dr. Andrew Lee",
+      "Other / Self-led"
+    )
+    
     #make the question
     sd_question(
       type = "select",

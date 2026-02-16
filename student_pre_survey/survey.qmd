@@ -90,7 +90,8 @@ sd_question(
     "Database Detectives: Exploring Public Genomic Databases"                 = "genomic_databases",
     "Family Markers: Using Multiply-Affected Families to Identify Risk Genes" = "family_markers",
     "Genomic Medicine: Polygenic Risk Score Calculation"                      = "prs",
-    "Differential Expression and the Mouse Gut-Brain Axis"                    = 'dif_exp'
+    "Differential Expression and the Mouse Gut-Brain Axis"                    = 'dif_exp',
+    "Population Genetics: Koi Pond Simulation"                                = 'popgen'
   )
 )
 

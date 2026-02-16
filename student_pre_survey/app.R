@@ -86,3 +86,4 @@ server <- function(input, output, session) {
 
 # Launch the app
 shiny::shinyApp(ui = ui, server = server)
+# rsconnect::deployApp(appName = "student_pre_survey")

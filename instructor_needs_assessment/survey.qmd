@@ -1,0 +1,352 @@
+---
+# General Settings
+format: html
+echo: false
+warning: false
+
+# Theme Settings
+theme: default
+barposition: top
+footer-left: 'Made with [surveydown](https://surveydown.org)'
+footer-right: '[<i class="bi bi-github"></i> Source Code](https://github.com/fhdsl/gems_surveys)'
+
+# Survey Settings
+use-cookies: false
+auto-scroll: false
+rate-survey: false
+system-language: en
+highlight-unanswered: true
+highlight-color: blue
+capture-metadata: true
+all-questions-required: false
+---
+
+```{r}
+library(surveydown)
+```
+
+::: {.sd_page id=welcome}
+
+# GEMs Module Student Pre-Survey
+
+**Thank you for participating in the survey!** We are collecting data about your needs as instructors teaching genomics and genetics topics. This data will be used to guide the GEMs Program and may ultimately be used for a research publication and reporting to the NIH.
+
+<u>DATA CONFIDENTIALITY</u>: Responses are anonymous. The potential risks to you are small. The potential benefits to the education community are high - we will use this information to guide development of education material.
+
+<u>DATA SHARING</u>: No personally identifiable information (such as response timestamp) will be shared.
+
+<u>PARTICIPATION</u>: You must be 18 or over to participate. You will be asked a series of questions about genomics education, including your experience with students. You can stop participating in the survey at any point. You do not need to answer optional questions. Any answers you have filled in will be automatically submitted if you close the browser tab.
+
+Depending on how you answer the survey, this will take ~10 minutes to complete.
+
+<u>RISK</u>: Risk of participation is minimal. The questions we ask pose minimal security risk to participants as they focus on your personal experience and expectations. While we have taken measures to ensure the security of the survey responses, please be aware that no online system is completely secure. By participating in this survey, you understand and accept the inherent risks associated with transmitting information over the internet.
+
+<u>CONSENT</u>: The first question will ask if you are over 18 years of age and if you consent (or agree) that the data from your responses be used for GEMs development purposes.
+
+<u>QUESTIONS OR PROBLEMS</u>: If you have questions or problems, email Ava Hoffman at [ahoffma2@fredhutch.org](mailto:ahoffma2@fredhutch.org). You may also contact the Fred Hutchinson Cancer Center IRB Office if you have questions about your rights as a participant. Contact the IRB if you feel you have not been treated fairly or if you have other concerns.
+
+This study has been deemed exempt by the Fred Hutchinson Cancer Center IRB, specifically Exempt status (Category (2)(ii) Tests, surveys, interviews, or observation (low risk)).
+
+IRB No.: FHIRB0020343<br/>
+Date Approved: 02/13/2024,<br/>
+The IRB contact information is:<br/>
+Address: Fred Hutch Cancer Center Institutional Review Office<br/>
+1100 Fairview Ave. N. Mail Stop J2-100, Seattle, WA 98109<br/>
+Telephone: 206-667-5900<br/>
+E-mail: [iro@fredhutch.org](mailto:iro@fredhutch.org)
+
+```{r}
+sd_question(
+  type   = 'mc',
+  id     = 'consent',
+  label  = 'I am 18 or over AND I consent to my responses being used for GEMs evaluation and development.',
+  option = c(
+    'Yes' = 'yes',
+    'No'  = 'no'
+  )
+)
+
+sd_next()
+```
+
+:::
+
+::: {.sd_page id=page2}
+
+```{r}
+sd_question(
+  type   = 'select',
+  id     = 'modulename',
+  label  = 'Which GEMs module will you be using for instruction?',
+  option = c(
+    'All of Us: Understanding Ethics'                                         = 'aou_ethics',
+    'Database Detectives: Exploring Public Genomic Databases'                 = 'genomic_databases',
+    'Family Markers: Using Multiply-Affected Families to Identify Risk Genes' = 'family_markers',
+    'Genomic Medicine: Polygenic Risk Score Calculation'                      = 'prs',
+    'Differential Expression and the Mouse Gut-Brain Axis'                    = 'dif_exp'
+  )
+)
+
+sd_question(
+  type = 'select',
+  id = 'institution',
+  label = 'Describe the institution where you do most of your instruction:',
+  option = c(
+    'Doctoral University - Very high research activity ("R1")' = 'dr_r_one',
+    'Doctoral University - High research activity ("R2")'      = 'dr_r_two',
+    "Master's College or University"                           = 'masters',
+    'Primarily Undergraduate Institution (PUI)'                = 'pui',
+    'Community College'                                        = 'cc',
+    'High School'                                              = 'hs',
+    'Other'                                                    = 'other'
+  )
+)
+
+sd_question(
+  type = 'text',
+  id = 'institution_other',
+  label = '(Optional) If you selected "Other", please provide a description of the type of institution where you do most of your instruction.'
+)
+
+sd_next()
+```
+
+:::
+
+::: {.sd_page id=page3}
+
+This next question will ask about your perspectives in <b><u>genomics/genetics education</u></b>.
+
+```{r}
+
+sd_question(
+  type   = 'matrix',
+  id     = 'likert_skills',
+  label  = 'Please rank <u>skills</u> you believe your students need to gain in genomics/genetics.',
+  option = c(
+    '1: Less Important' = '1',
+    '2'                 = '2',
+    '3'                 = '3',
+    '4'                 = '4',
+    '5: More Important' = '5'
+  ),
+  row = c(
+    'Construct and interpret pedigrees'                                                           = 'pedigrees',
+    'Analyze genetic data (e.g., variant detection, Punnett squares, Hardy-Weinberg calculations' = 'analyze_genetic_data',
+    'Interpret test results (e.g., variants of uncertain significance)'                           = 'interpret_test_results',
+    'Communicate genetic concepts (e.g., explaining risk to a lay audience)'                      = 'communicate_concepts',
+    'Use bioinformatic tools (NCBI, UCSC Genome Browser)'                                         = 'use_bioinformatic_tools',
+    'Other'                                                                                       = 'other'
+  )
+)
+
+sd_question(
+  type = 'textarea',
+  id = 'likert_skills_other',
+  label = '(Optional) If you ranked "Other" highly, please elaborate.'
+)
+
+sd_next()
+
+```
+:::
+
+::: {.sd_page id=page4}
+
+This question continues with your perspectives in <b><u>genomics/genetics education</u></b>.
+
+```{r}
+
+sd_question(
+  type   = 'matrix',
+  id     = 'likert_knowledge_areas',
+  label  = 'Please rank <u>knowledge areas</u> you believe your students need develop competence.',
+  option = c(
+    '1: Less Important' = '1',
+    '2'                 = '2',
+    '3'                 = '3',
+    '4'                 = '4',
+    '5: More Important' = '5'
+  ),
+  row = c(
+    'Fundamental concepts (inheritance patterns, molecular genetics, epigenetics)'                                                                                                            = 'fundamental_concepts',
+    'Programming languages'                                                                                                                                                                   = 'programming',
+    'Common genetic conditions (e.g., cystic fibrosis, sickle cell)'                                                                                                                          = 'genetic_conditions',
+    'Applications such as Genetic testing (diagnostic carrier screening, pharmacogenomics), Prenatal/preimplantation testing (PGD), or Direct-to-consumer testing (e.g., 23andMe / Ancestry)' = 'application_testing',
+    'Ethical/legal issues (privacy, discrimination, CRISPR ethics)'                                                                                                                           = 'ethics',
+    'Sources of information (primary literature, online databases like OMIM)'                                                                                                                 = 'info_sources',
+    'Other'                                                                                                                                                                                   = 'other'
+  )
+)
+
+sd_question(
+  type = 'textarea',
+  id = 'likert_knowledge_areas_other',
+  label = '(Optional) If you ranked "Other" highly, please elaborate.'
+)
+
+sd_next()
+
+```
+:::
+
+::: {.sd_page id=page5}
+
+These next questions continues with your perspectives in <b><u>genomics/genetics education</u></b>.
+
+```{r}
+sd_question(
+  type  = 'textarea',
+  id    = 'prioritized_part',
+  label = 'What part of genomics/genetics education should be prioritized for your students or learning environment?'
+)
+
+sd_question(
+  type   = 'matrix',
+  id     = 'likert_gain_confidence',
+  label  = 'Please rank areas you believe your students will most benefit from gaining confidence.',
+  option = c(
+    '1: Least Benefit' = '1',
+    '2'                = '2',
+    '3'                = '3',
+    '4'                = '4',
+    '5: Most Benefit'  = '5'
+  ),
+  row = c(
+    'Solving genetic problems (e.g., variant detection)'                                                 = 'solving_genetic_probs',
+    'Explaining genetic concepts to peers'                                                               = 'explain_concepts_to_peers',
+    'Interpreting research papers or clinical case studies'                                              = 'interpret_papers_case_studies',
+    'Applying genetics to real-world scenarios (e.g., diagnostics, public health, conservation biology)' = 'applying_to_real_world',
+    'Using bioinformatic tools (NCBI, UCSC Genome Browser)'                                              = 'use_bioinformatic_tools',
+    'Other'                                                                                              = 'other'
+  )
+)
+
+sd_question(
+  type = 'textarea',
+  id = 'likert_gain_confidence_other',
+  label = '(Optional) If you ranked "Other" highly, please elaborate.'
+)
+
+sd_next()
+
+```
+:::
+
+::: {.sd_page id=page6}
+
+These questions ask about your perspectives regarding <b>student outcomes for success</b> in <b><u>genomics/genetics education</u></b>.
+
+```{r}
+
+sd_question(
+  type = 'textarea',
+  id = 'path_decision_prep',
+  label = 'What are 2-3 career paths or real-world decisions that genetics/genomics education prepares your students for?'
+)
+
+sd_question(
+  type = 'mc_multiple',
+  id = 'most_important_outcomes_student',
+  label = 'Which <u>student</u> outcomes are most important to address?',
+  option = c(
+    'Knowledge'  = 'knowledge',
+    'Skills'     = 'skills',
+    'Attitudes'  = 'attitudes',
+    'Confidence' = 'confidence',
+    'Other'      = 'other'
+  )
+)
+
+sd_question(
+  type = 'textarea',
+  id = 'most_important_outcomes_student_other',
+  label = '(Optional) If you selected "Other", please elaborate. In addition, please feel free to elaborate "why"'
+)
+
+sd_question(
+  type = 'textarea',
+  id='success_message_student',
+  label = 'Given your responses above, what would we <u>hear from students</u> after a successful activity? For example:\n\n<em>"I finally understand how to interpret risk scores and explain it to my peers."\n\n"I am applying to genetic counseling programs because the ethics module resonated with me."\n\n"I now read about genomics without feeling overwhelmed."\n\n"The module made me think about how ancestry companies use my data."\n\n"I feel like I belong in STEM."</em>'
+)
+
+sd_question(
+  type = 'textarea',
+  id = 'success_observe_student',
+  label = 'Given your responses above, what would we <u>observe from students</u> after a successful activity? For example:\n\n<em>Increased further education enrollment, internship/research placement\n\nStudents using tools independently\n\nAlumni surveys (1 or 2 years later) show an increase in the percent pursuing genomics-related careers</em>'
+)
+
+sd_next()
+
+```
+:::
+
+::: {.sd_page id=page7}
+
+Finally, these questions ask about your perspectives regarding <b>instructor outcomes for success</b> in <b><u>genomics/genetics education</u></b>.
+
+```{r}
+
+sd_question(
+  type = 'mc_multiple',
+  id = 'most_important_outcomes_instructor',
+  label = 'Which <u>instructor</u> outcomes are most important to address?',
+  option = c(
+    'Knowledge'  = 'knowledge',
+    'Skills'     = 'skills',
+    'Attitudes'  = 'attitudes',
+    'Confidence' = 'confidence',
+    'Other'      = 'other'
+  )
+)
+
+sd_question(
+  type = 'textarea',
+  id = 'most_important_outcomes_instructor_other',
+  label = '(Optional) If you selected "Other", please elaborate. In addition, please feel free to elaborate "why"'
+)
+
+sd_question(
+  type = 'textarea',
+  id='success_message_instructor',
+  label = 'Given your responses above, what would we <u>hear from instructors</u> (you and others) after a successful activity? For example:\n\n<em>"I now feel updated on the latest in data wrangling - I plan to develop my own R mini-modules."\n\n"I used to avoid teaching ethics in data analysis; now I see it as a critical discussion starter."\n\n"I feel like I have a community of practice now."</em>'
+)
+
+sd_question(
+  type = 'textarea',
+  id = 'success_observe_instructor',
+  label = 'Given your responses above, what would we <u>observe from instructors</u> (you and others) after a successful activity? For example:\n\n<em>More collaboration or sense of community of practice\n\nFaculty publishing/presenting on genomics education modules\n\nMentoring students in capstone projects or independent study\n\nAdapting genomics modules into other courses or creating own modules\n\nLeading workshops or guest lecturing on genomics topics</em>'
+)
+
+sd_question(
+  type = 'textarea',
+  id = 'add_resources',
+  label = "What additional training/resources would help you teach genomics/genetics topics more effectively?\n\n<em>What resources have you used in the past? What is it that you liked about some other resources you've used?</em>"
+)
+
+sd_next()
+```
+
+:::
+
+::: {.sd_page id=end}
+
+## Thank you for taking this survey!
+
+```{r}
+sd_close()
+```
+
+:::
+
+::: {.sd_page id=screenout}
+
+## Thank you for your interest!
+
+Unfortunately, you do not meet the eligibility requirements for this survey.
+
+```{r}
+sd_close()
+```
+
+:::

@@ -7,7 +7,7 @@ warning: false
 # Theme Settings
 theme: default
 barposition: top
-footer-left: "Made with [surveydown](https://surveydown.org)"
+footer-left: 'Made with [surveydown](https://surveydown.org)'
 footer-right: '[<i class="bi bi-github"></i> Source Code](https://github.com/fhdsl/gems_surveys)'
 
 # Survey Settings
@@ -59,7 +59,7 @@ E-mail: [iro@fredhutch.org](mailto:iro@fredhutch.org)
 sd_question(
   type   = 'mc',
   id     = 'consent',
-  label  = "I am 18 or over AND I consent to my responses being used for GEMs evaluation and development.",
+  label  = 'I am 18 or over AND I consent to my responses being used for GEMs evaluation and development.',
   option = c(
     'Yes' = 'yes',
     'No'  = 'no'
@@ -77,28 +77,28 @@ sd_next()
 sd_question(
   type   = 'select',
   id     = 'modulename',
-  label  = "Which GEMs module will you be using for instruction?",
+  label  = 'Which GEMs module will you be using for instruction?',
   option = c(
-    "All of Us: Understanding Ethics"                                         = "aou_ethics",
-    "Database Detectives: Exploring Public Genomic Databases"                 = "genomic_databases",
-    "Family Markers: Using Multiply-Affected Families to Identify Risk Genes" = "family_markers",
-    "Genomic Medicine: Polygenic Risk Score Calculation"                      = "prs",
-    "Differential Expression and the Mouse Gut-Brain Axis"                    = 'dif_exp'
+    'All of Us: Understanding Ethics'                                         = 'aou_ethics',
+    'Database Detectives: Exploring Public Genomic Databases'                 = 'genomic_databases',
+    'Family Markers: Using Multiply-Affected Families to Identify Risk Genes' = 'family_markers',
+    'Genomic Medicine: Polygenic Risk Score Calculation'                      = 'prs',
+    'Differential Expression and the Mouse Gut-Brain Axis'                    = 'dif_exp'
   )
 )
 
 sd_question(
   type = 'select',
   id = 'institution',
-  label = "Describe the institution where you do most of your instruction:",
+  label = 'Describe the institution where you do most of your instruction:',
   option = c(
-    'Doctoral University - Very high research activity ("R1")' = "dr_r_one",
-    'Doctoral University - High research activity ("R2")'      = "dr_r_two",
-    "Master's College or University"                           = "masters",
-    "Primarily Undergraduate Institution (PUI)"                = "pui",
-    "Community College"                                        = "cc",
-    "High School"                                              = "hs",
-    "Other"                                                    = "other"
+    'Doctoral University - Very high research activity ("R1")' = 'dr_r_one',
+    'Doctoral University - High research activity ("R2")'      = 'dr_r_two',
+    "Master's College or University"                           = 'masters',
+    'Primarily Undergraduate Institution (PUI)'                = 'pui',
+    'Community College'                                        = 'cc',
+    'High School'                                              = 'hs',
+    'Other'                                                    = 'other'
   )
 )
 
@@ -115,25 +115,25 @@ sd_next()
 
 ::: {.sd_page id=page3}
 
-The next questions will ask about your perspectives in <b><u>genomics/genetics education</u></b>.
+This next question will ask about your perspectives in <b><u>genomics/genetics education</u></b>.
 
 ```{r}
 
 sd_question(
   type   = 'matrix',
   id     = 'likert_skills',
-  label  = "Please rank <u>skills</u> you believe your students need to gain in genomics/genetics.",
+  label  = 'Please rank <u>skills</u> you believe your students need to gain in genomics/genetics.',
   option = c(
-    "1: Less Important" = "1",
-    "2"                 = '2',
-    "3"                 = '3',
-    "4"                 = '4',
-    "5: More Important" = "5"
+    '1: Less Important' = '1',
+    '2'                 = '2',
+    '3'                 = '3',
+    '4'                 = '4',
+    '5: More Important' = '5'
   ),
   row = c(
-    'Construct and interpret pedigrees'                                                            = 'pedigrees',
+    'Construct and interpret pedigrees'                                                           = 'pedigrees',
     'Analyze genetic data (e.g., variant detection, Punnett squares, Hardy-Weinberg calculations' = 'analyze_genetic_data',
-    'Interpret test results (e.g., variants of uncertain significance)'                            = 'interpret_test_results',
+    'Interpret test results (e.g., variants of uncertain significance)'                           = 'interpret_test_results',
     'Communicate genetic concepts (e.g., explaining risk to a lay audience)'                      = 'communicate_concepts',
     'Use bioinformatic tools (NCBI, UCSC Genome Browser)'                                         = 'use_bioinformatic_tools',
     'Other'                                                                                       = 'other'
@@ -146,17 +146,27 @@ sd_question(
   label = '(Optional) If you ranked "Other" highly, please elaborate.'
 )
 
+sd_next()
+
+```
+:::
+
+::: {.sd_page id=page4}
+
+This question continues with your perspectives in <b><u>genomics/genetics education</u></b>.
+
+```{r}
 
 sd_question(
   type   = 'matrix',
   id     = 'likert_knowledge_areas',
-  label  = "Please rank <u>knowledge areas</u> you believe your students need develop competence.",
+  label  = 'Please rank <u>knowledge areas</u> you believe your students need develop competence.',
   option = c(
-    "1: Less Important" = "1",
-    "2"                 = '2',
-    "3"                 = '3',
-    "4"                 = '4',
-    "5: More Important" = "5"
+    '1: Less Important' = '1',
+    '2'                 = '2',
+    '3'                 = '3',
+    '4'                 = '4',
+    '5: More Important' = '5'
   ),
   row = c(
     'Fundamental concepts (inheritance patterns, molecular genetics, epigenetics)'                                                                                                            = 'fundamental_concepts',
@@ -175,6 +185,16 @@ sd_question(
   label = '(Optional) If you ranked "Other" highly, please elaborate.'
 )
 
+sd_next()
+
+```
+:::
+
+::: {.sd_page id=page5}
+
+These next questions continues with your perspectives in <b><u>genomics/genetics education</u></b>.
+
+```{r}
 sd_question(
   type  = 'textarea',
   id    = 'prioritized_part',
@@ -184,13 +204,13 @@ sd_question(
 sd_question(
   type   = 'matrix',
   id     = 'likert_gain_confidence',
-  label  = "Please rank areas you believe your students will most benefit from gaining confidence.",
+  label  = 'Please rank areas you believe your students will most benefit from gaining confidence.',
   option = c(
-    "1: Least Benefit" = "1",
-    "2"                = '2',
-    "3"                = '3',
-    "4"                = '4',
-    "5: Most Benefit"  = "5"
+    '1: Least Benefit' = '1',
+    '2'                = '2',
+    '3'                = '3',
+    '4'                = '4',
+    '5: Most Benefit'  = '5'
   ),
   row = c(
     'Solving genetic problems (e.g., variant detection)'                                                 = 'solving_genetic_probs',
@@ -208,22 +228,33 @@ sd_question(
   label = '(Optional) If you ranked "Other" highly, please elaborate.'
 )
 
+sd_next()
+
+```
+:::
+
+::: {.sd_page id=page6}
+
+These questions ask about your perspectives regarding <b>student outcomes for success</b> in <b><u>genomics/genetics education</u></b>.
+
+```{r}
+
 sd_question(
   type = 'textarea',
   id = 'path_decision_prep',
-  label = "What are 2-3 career paths or real-world decisions that genetics/genomics education prepares your students for?"
+  label = 'What are 2-3 career paths or real-world decisions that genetics/genomics education prepares your students for?'
 )
 
 sd_question(
   type = 'mc_multiple',
   id = 'most_important_outcomes_student',
-  label = "Which <u>student</u> outcomes are most important to address?",
+  label = 'Which <u>student</u> outcomes are most important to address?',
   option = c(
-    "Knowledge"  = "knowledge",
-    "Skills"     = "skills",
-    "Attitudes"  = "attitudes",
-    "Confidence" = "confidence",
-    "Other"      = "other"
+    'Knowledge'  = 'knowledge',
+    'Skills'     = 'skills',
+    'Attitudes'  = 'attitudes',
+    'Confidence' = 'confidence',
+    'Other'      = 'other'
   )
 )
 
@@ -245,16 +276,27 @@ sd_question(
   label = 'Given your responses above, what would we <u>observe from students</u> after a successful activity? For example:\n\n<em>Increased further education enrollment, internship/research placement\n\nStudents using tools independently\n\nAlumni surveys (1 or 2 years later) show an increase in the percent pursuing genomics-related careers</em>'
 )
 
+sd_next()
+
+```
+:::
+
+::: {.sd_page id=page7}
+
+Finally, these questions ask about your perspectives regarding <b>instructor outcomes for success</b> in <b><u>genomics/genetics education</u></b>.
+
+```{r}
+
 sd_question(
   type = 'mc_multiple',
   id = 'most_important_outcomes_instructor',
-  label = "Which <u>instructor</u> outcomes are most important to address?",
+  label = 'Which <u>instructor</u> outcomes are most important to address?',
   option = c(
-    "Knowledge"  = "knowledge",
-    "Skills"     = "skills",
-    "Attitudes"  = "attitudes",
-    "Confidence" = "confidence",
-    "Other"      = "other"
+    'Knowledge'  = 'knowledge',
+    'Skills'     = 'skills',
+    'Attitudes'  = 'attitudes',
+    'Confidence' = 'confidence',
+    'Other'      = 'other'
   )
 )
 
